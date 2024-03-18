@@ -12,9 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('results', function (Blueprint $table) {
-            $table->id();
+             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->string('degree');
+            $table->enum('mark', ['pass', 'fall'])->default('pass');
+            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
+            $table->foreignId('lesson_id')->constrained('lessons')->cascadeOnDelete();
+            $table->foreignId('level_id')->constrained('levels')->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
